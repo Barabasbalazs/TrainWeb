@@ -1,0 +1,8 @@
+stages:
+  - check
+
+check:
+  stage: check
+  image: bbteinfo/webprog-gitlabutils
+  script:
+    - checkrepo

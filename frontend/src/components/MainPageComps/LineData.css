@@ -1,0 +1,17 @@
+.train {
+    height: 100%;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: 'border-info';
+    font-family: 'Monaco', sans-serif;
+    background-image: url('../Pics/smoke.jpeg');
+    font-weight: bold;
+    color: white; 
+}
+
+.side {
+    background-attachment: fixed;
+    background-image: url('../Pics/railroad.jpg');
+}

@@ -1,0 +1,16 @@
+Lab4 uses mongodb as it's database.
+The name of the database that it uses: trains
+The collections are: 
+1. line (from: String,
+  to: String,
+  weekday: String,
+  hour: String,
+  ticketprice: Number,
+  traintype: String,
+  myownid: Number,)
+2. user (myownid: Number,
+  name: String,)  
+3. reservation (userid: Number,
+  trainid: Number,)
+
+the connection string the app tries to use: 'mongodb://localhost:27017/trains'  

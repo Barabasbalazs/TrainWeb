@@ -1,0 +1,11 @@
+.search {
+    height: 100%;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: 'border-info';
+    font-family: 'Monaco', sans-serif;
+    font-weight: bold;
+    color: white;
+}

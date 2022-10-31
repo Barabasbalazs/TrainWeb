@@ -1,0 +1,36 @@
+{
+  "name": "lab-bbim1990",
+  "version": "1.0.0",
+  "description": "Webprog lab project",
+  "main": "script.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/ubb-webprog/labs2022/lab-bbim1990.git"
+  },
+  "author": "Barabás Balázs",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/ubb-webprog/labs2022/lab-bbim1990/issues"
+  },
+  "homepage": "https://gitlab.com/ubb-webprog/labs2022/lab-bbim1990#readme",
+  "devDependencies": {
+    "eslint": "^8.13.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0"
+  },
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "crypto-js": "^4.1.1",
+    "express": "^4.17.3",
+    "joi": "^17.6.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.3.1",
+    "morgan": "^1.10.0"
+  },
+  "type": "module"
+}
