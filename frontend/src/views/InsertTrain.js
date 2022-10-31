@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import { Form, Button, Modal, ModalBody, ModalFooter, ModalTitle, ModalHeader } from 'react-bootstrap';
 import Joi from 'joi';
-import './Forms.css';
+import '../styles/views/Forms.css'
 
 const InsertTrain = () => {
 

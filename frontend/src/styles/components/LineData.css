@@ -6,12 +6,12 @@
     text-align: center;
     border: 'border-info';
     font-family: 'Monaco', sans-serif;
-    background-image: url('../Pics/smoke.jpeg');
+    background-image: url('../../assets/pics/smoke.jpeg');
     font-weight: bold;
     color: white; 
 }
 
 .side {
     background-attachment: fixed;
-    background-image: url('../Pics/railroad.jpg');
+    background-image: url('../../assets/pics/railroad.jpg');
 }

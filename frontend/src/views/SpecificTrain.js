@@ -1,10 +1,10 @@
 import { useLocation } from 'react-router-dom';
 import { useState,useEffect } from 'react';
 import { useCookies } from 'react-cookie';
-import Top from './components/LoginComps/Top';
-import Res from './components/SpecificTrainComps/Res';
+import Top from '../components/LoginComps/Top';
+import Res from '../components/SpecificTrainComps/Res';
 import { Modal, ModalBody, ModalHeader, ModalFooter, ModalTitle, Button} from 'react-bootstrap';
-import './SpecificTrain.css';
+import '../styles/views/SpecificTrain.css';
 
 const SpecificTrain = () => {
 

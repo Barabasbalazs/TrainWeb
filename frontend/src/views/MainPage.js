@@ -1,8 +1,8 @@
 import { useState,useEffect } from 'react';
-import './MainPage.css';
-import Lines from './components/MainPageComps/Lines';
-import SearchBar from './components/MainPageComps/SearchBar';
-import Top from './components/LoginComps/Top';
+import '../styles/views/MainPage.css';
+import Lines from '../components/MainPageComps/Lines';
+import SearchBar from '../components/MainPageComps/SearchBar';
+import Top from '../components/LoginComps/Top';
 import { useCookies } from 'react-cookie';
 import { Modal, ModalBody, ModalHeader, ModalFooter, ModalTitle, Button} from 'react-bootstrap';
 

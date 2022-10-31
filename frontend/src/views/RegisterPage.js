@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Modal, ModalBody, ModalHeader, ModalFooter, ModalTitle,Form, Button} from 'react-bootstrap';
-import './Forms.css';
+import '../styles/views/Forms.css';
 
 const RegisterPage = () => {
 

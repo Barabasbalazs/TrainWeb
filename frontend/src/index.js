@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import MainPage from './MainPage';
+import MainPage from './views/MainPage';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter,Route,Routes} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import SpecificTrain from './SpecificTrain';
-import RegisterPage from './RegisterPage';
-import InsertTrain from './InsertTrain';
+import SpecificTrain from './views/SpecificTrain';
+import RegisterPage from './views/RegisterPage';
+import InsertTrain from './views/InsertTrain';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

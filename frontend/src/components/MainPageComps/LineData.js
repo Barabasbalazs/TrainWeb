@@ -2,7 +2,7 @@ import {Modal, ModalBody, ModalHeader, ModalFooter, ModalTitle,Button} from "rea
 import { useState } from 'react';
 import {Link} from 'react-router-dom';
 import DeleteTrainButton from "./DeleteTrainButton";
-import './LineData.css';
+import './../../styles/components/LineData.css';
 
 const LineData = (props) => {
     const [err,setErr] = useState({
