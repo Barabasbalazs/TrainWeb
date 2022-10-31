@@ -1,7 +1,7 @@
 import { Navbar, Container, Button, FormControl, Form, Modal, ModalHeader, ModalTitle, ModalBody, ModalFooter } from "react-bootstrap";
 import { useState } from "react";
-import { useCookies } from "react-cookie";
 import { useNavigate } from 'react-router-dom';
+import apiUrl from "../../utils/constants/apiUrl";
 
 const TopLogin = (props) => {
 
@@ -14,11 +14,8 @@ const TopLogin = (props) => {
         incorrectfield: '',
     });
 
-    // eslint-disable-next-line no-unused-vars
-    const [cookies, setCookie] = useCookies({});
-
     const checkVal = async () => {
-        fetch(`http://localhost:8080/userdata/?name=${state.username}&pw=${state.password}`, {
+        fetch(`${apiUrl}/userdata/?name=${state.username}&pw=${state.password}`, {    
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
         })
@@ -52,8 +49,13 @@ const TopLogin = (props) => {
                     }
                 })
             } else {
-                setCookie('token', json.token, { path: '/'});
-                props.logIn(json.token);
+                localStorage.setItem('username',state.username);
+                localStorage.setItem('jwt',json.token);
+                localStorage.setItem('type',json.type);
+                localStorage.setItem('id',json.id);
+                // setCookie('token', json.token, { path: '/'});
+                //props.logIn(json.token);
+                props.authCallback();
             }
           })
           .catch(() => {
@@ -68,7 +70,7 @@ const TopLogin = (props) => {
           });
     }
 
-    const handleClick = () => {
+    const handleClick = async () => {
         if (state.username === '') {
             setState((prevState) => {
                 return {

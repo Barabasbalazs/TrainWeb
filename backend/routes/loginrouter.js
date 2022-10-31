@@ -2,11 +2,12 @@ import express from 'express';
 import pkg from 'crypto-js';
 import jwt from 'jsonwebtoken';
 import mongoFunctions from '../db/db.js';
-import secret from '../utils/constants.js';
+import constants from '../utils/constants.js';
 
 const { SHA256 } = pkg;
 
 const router = express.Router();
+const { secret } = constants;
 
 const pwValid = (pwfromuser, pwfromdb) => {
   const hashedPw = SHA256(pwfromuser);
@@ -25,6 +26,9 @@ router.get('/', (req, res) => {
   const respobj = {
     token: '',
     error: '',
+    name: '',
+    id: '',
+    type: '',
   };
   mongoFunctions.asyncFindUser(req.query.name)
     .then((user) => {
@@ -40,6 +44,9 @@ router.get('/', (req, res) => {
         };
         const token = jwt.sign(tmpUserObj, secret);
         respobj.token = token;
+        respobj.name = req.query.name;
+        respobj.id = user.myownid;
+        respobj.type = user.type;
         res.send(respobj);
       } else {
         respobj.error = 'password';

@@ -2,10 +2,11 @@ import TopLogin from "./TopLogin";
 import TopLogout from "./TopLogout";
 
 const Top = (props) => {
-    if (props.user !== '') {
+    //console.log(props);
+    if (props.user !== null) {
         return (
             <TopLogout
-                logOut={props.logOut}
+                authCallback={props.authCallback}
                 user={props.user}
                 type={props.type}
             />
@@ -13,7 +14,7 @@ const Top = (props) => {
     } else {
         return (
             <TopLogin
-                logIn={props.logIn}
+                authCallback={props.authCallback}
             />
         )
     }

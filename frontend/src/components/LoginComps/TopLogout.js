@@ -5,13 +5,19 @@ import { useNavigate } from 'react-router-dom';
 const TopLogout = (props) => {
 
     let navigate = useNavigate();
-
+    
     const [state] = useState({
         user: props.user
     });
 
+
     const handleClick = () => {
-        props.logOut();
+        localStorage.removeItem('jwt');
+        localStorage.removeItem('username');
+        localStorage.removeItem('jwt');
+        localStorage.removeItem('type');
+        localStorage.removeItem('id');
+        props.authCallback();
     }
 
     const routeChange = () => {
@@ -20,6 +26,8 @@ const TopLogout = (props) => {
 
     if (props.type === 'admin') {
         return (
+            <div>
+            {state &&    
             <Navbar bg="primary" variant="dark" sticky="top" className="navbar-right">
                 <Container>
                 <Form className="d-flex flex-row pull-right">
@@ -29,9 +37,13 @@ const TopLogout = (props) => {
                 </Form>        
                 </Container>
             </Navbar>
+            }
+            </div>
         )
     } else {
         return (
+            <div>
+            {state && 
             <Navbar bg="primary" variant="dark" sticky="top" className="navbar-right">
                 <Container>
                     <Form className="d-flex flex-row">
@@ -40,6 +52,8 @@ const TopLogout = (props) => {
                     </Form>
                 </Container>
             </Navbar>
+            }
+            </div>
         )
     }
 }

@@ -5,7 +5,7 @@ const secret = '4234hdh9ghf38rdnfocnw4';
 
 const checkToken = (req, res, next) => {
   // console.log(req);
-  // console.log(req.cookie);
+  console.log(req.cookie);
   next();
 
   /*

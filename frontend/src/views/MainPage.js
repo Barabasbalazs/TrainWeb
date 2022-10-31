@@ -8,6 +8,9 @@ import { Modal, ModalBody, ModalHeader, ModalFooter, ModalTitle, Button} from 'r
 
 const MainPage = () => {
   //needs to stay like this
+  const [auth, setAuth] = useState({
+    loggedin: false
+  });
   const [state, setState] = useState();
   // eslint-disable-next-line no-unused-vars
   const [cookies, setCookie, removeCookie] = useCookies([]);
@@ -17,6 +20,8 @@ const MainPage = () => {
     incorrectfield: ''
     });
 
+  //setCookie('testcookie', 'blabla', {path : '/'});  
+
   //note to myself: store the user value separately
   //when logging in set cookie and user data separately-> can send it from TopLogin
 
@@ -25,7 +30,7 @@ const MainPage = () => {
       await fetch('http://localhost:8080/lines', {
           method: 'GET',
           headers: { Accept: 'application/json','Content-Type': 'application/json'},
-          credentials: 'same-origin',
+          
       })
         .then((res) => res.json())
         .then((jsonobj) => {
@@ -46,42 +51,21 @@ const MainPage = () => {
         })  
   }
   
-  const fetchUser = () => {
-    fetch(`http://localhost:8080/?auth=${cookies.token}`, {
-            method: 'POST',
-            headers: { Accept: 'application/json','Content-Type': 'application/json'},
-            credentials: 'same-origin',
-        })
-          .then((res) => res.json())
-          .then((json) => {
-            setUser({
-              name: json.name,
-              id: json.id,
-              type: json.type
-            })
-          })
-          .catch(() => {
-            setErr({
-              show: true,
-              incorrectfield: 'Not able to load data'
-            })
-          })  
-  }
-
   useEffect(() => {
     getLines();
-    if (cookies.token) {
-      fetchUser();
-    } else {
-      setUser({
-        name: '',
-        id: '',
-        type: ''
-      });
+    if (localStorage.getItem('username') !== null) {
+      setAuth({
+        loggedin: true
+      })
     }
+    setUser({
+      name: localStorage.getItem('username'),
+      type: localStorage.getItem('type'),
+      id: localStorage.getItem('id'),
+    })
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
+  
   //improve the search 
   const searchLines = (recieved) => {
     if (recieved.minprice !== '' && recieved.maxprice !== '' && recieved.minprice >= 0 && recieved.maxprice >= 0)
@@ -101,37 +85,6 @@ const MainPage = () => {
         });     
   }
 
-  const logOut = () => {
-    removeCookie('token', { path: '/'});
-    setUser({
-      name: '',
-      id: '',
-      type: '',
-    })// something here
-  }
-
-  const loggedIn = async (newtoken) => {
-    fetch(`http://localhost:8080/?auth=${newtoken}`, {
-            method: 'POST',
-            headers: { Accept: 'application/json','Content-Type': 'application/json'},
-            credentials: 'same-origin',
-        })
-          .then((res) => res.json())
-          .then((json) => {
-            setUser({
-              name: json.name,
-              id: json.id,
-              type: json.type
-            })
-          })
-          .catch(() => {
-            setErr({
-              show: true,
-              incorrectfield: 'Not able to load data'
-            })
-          }) 
-  }
-
   const handleClose = () => {
     setErr({
       show: false,
@@ -143,14 +96,21 @@ const MainPage = () => {
     getLines();
   }
 
+  const authCallback = () => {
+    setUser({
+      name: localStorage.getItem('username'),
+      type: localStorage.getItem('type'),
+      id: localStorage.getItem('id'),
+    });
+  }
+
   return (
     <div className="wrapper bg-warning"> 
-      {user && <Top 
-                  user={user.name} 
-                  logOut={logOut}
-                  logIn={loggedIn}
-                  type={user.type}
-                />}
+      {user && <Top
+        authCallback = {authCallback}
+        user = {user.name}
+        type = {user.type}
+      />}
       <SearchBar
         submitSearch={searchLines}
       />
