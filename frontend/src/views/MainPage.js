@@ -3,33 +3,27 @@ import '../styles/views/MainPage.css';
 import Lines from '../components/MainPageComps/Lines';
 import SearchBar from '../components/MainPageComps/SearchBar';
 import Top from '../components/LoginComps/Top';
-import { useCookies } from 'react-cookie';
 import { Modal, ModalBody, ModalHeader, ModalFooter, ModalTitle, Button} from 'react-bootstrap';
+import routes from '../router/index';
+
+const { lineRoute, searchRoute } = routes;
 
 const MainPage = () => {
-  //needs to stay like this
-  const [auth, setAuth] = useState({
-    loggedin: false
-  });
   const [state, setState] = useState();
   // eslint-disable-next-line no-unused-vars
-  const [cookies, setCookie, removeCookie] = useCookies([]);
+  // const [cookies, setCookie, removeCookie] = useCookies([]);
   const [user, setUser] = useState();
   const [err,setErr] = useState({ 
     show: false,
     incorrectfield: ''
     });
 
-  //setCookie('testcookie', 'blabla', {path : '/'});  
-
-  //note to myself: store the user value separately
-  //when logging in set cookie and user data separately-> can send it from TopLogin
-
   //need to get if user is logged in as well
   const getLines = async () => {
-      await fetch('http://localhost:8080/lines', {
+      await fetch(lineRoute, {
           method: 'GET',
           headers: { Accept: 'application/json','Content-Type': 'application/json'},
+          credentials: 'include'
           
       })
         .then((res) => res.json())
@@ -53,11 +47,6 @@ const MainPage = () => {
   
   useEffect(() => {
     getLines();
-    if (localStorage.getItem('username') !== null) {
-      setAuth({
-        loggedin: true
-      })
-    }
     setUser({
       name: localStorage.getItem('username'),
       type: localStorage.getItem('type'),
@@ -69,9 +58,10 @@ const MainPage = () => {
   //improve the search 
   const searchLines = (recieved) => {
     if (recieved.minprice !== '' && recieved.maxprice !== '' && recieved.minprice >= 0 && recieved.maxprice >= 0)
-      fetch(`http://localhost:8080/searchlines/?from=${recieved.from}&to=${recieved.to}&min=${recieved.minprice}&max=${recieved.maxprice}`, {
+      fetch(`${searchRoute}/?from=${recieved.from}&to=${recieved.to}&min=${recieved.minprice}&max=${recieved.maxprice}`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include'
       })
         .then((resp) => resp.json())
         .then((json) => {

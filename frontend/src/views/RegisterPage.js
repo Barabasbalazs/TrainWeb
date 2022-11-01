@@ -2,6 +2,9 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Modal, ModalBody, ModalHeader, ModalFooter, ModalTitle,Form, Button} from 'react-bootstrap';
 import '../styles/views/Forms.css';
+import routes from '../router/index';
+
+const { registrationRoute } = routes;
 
 const RegisterPage = () => {
 
@@ -92,10 +95,10 @@ const RegisterPage = () => {
             pw: state.pw,
             type: state.type
         };
-        fetch(`http://localhost:8080/register`, {
+        fetch(registrationRoute, {
             method: 'POST',
             headers: { Accept: 'application/json','Content-Type': 'application/json'},
-            credentials: 'same-origin',
+            credentials: 'include',
             body: JSON.stringify(userData),
         })
         .then((res) => res.json())

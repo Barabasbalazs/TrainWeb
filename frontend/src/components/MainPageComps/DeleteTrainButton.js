@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import { Button, Modal, ModalHeader, ModalTitle, ModalBody, ModalFooter } from 'react-bootstrap';
+import routes from '../../router/index';
+
+const { deleteTrainRoute } = routes;
 
 const DeleteTrainButton = (props) => {
 
@@ -13,10 +16,10 @@ const DeleteTrainButton = (props) => {
         const sendObj = {
             trainid: props.trainid
         }
-        await fetch('http://localhost:8080/deletetrain', {
+        await fetch(deleteTrainRoute, {
             method: 'POST',
             headers: { Accept: 'application/json','Content-Type': 'application/json'},
-            credentials: 'same-origin',
+            credentials: 'include',
             body: JSON.stringify(sendObj),
         })
         .then((resp) => resp.json())

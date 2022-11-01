@@ -1,7 +1,9 @@
 import { Navbar, Container, Button, FormControl, Form, Modal, ModalHeader, ModalTitle, ModalBody, ModalFooter } from "react-bootstrap";
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import apiUrl from "../../utils/constants/apiUrl";
+import routes from "../../router/index";
+
+const { authRoute } = routes;
 
 const TopLogin = (props) => {
 
@@ -14,8 +16,8 @@ const TopLogin = (props) => {
         incorrectfield: '',
     });
 
-    const checkVal = async () => {
-        fetch(`${apiUrl}/userdata/?name=${state.username}&pw=${state.password}`, {    
+    const sendAuth = async () => {
+        fetch(`${authRoute}/?name=${state.username}&pw=${state.password}`, {    
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
         })
@@ -90,7 +92,7 @@ const TopLogin = (props) => {
                 }
             })
         } else {
-            checkVal();
+            sendAuth();
         }   
     };
 

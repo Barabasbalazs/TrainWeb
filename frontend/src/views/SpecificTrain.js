@@ -5,6 +5,9 @@ import Top from '../components/LoginComps/Top';
 import Res from '../components/SpecificTrainComps/Res';
 import { Modal, ModalBody, ModalHeader, ModalFooter, ModalTitle, Button} from 'react-bootstrap';
 import '../styles/views/SpecificTrain.css';
+import routes from '../router/index';
+
+const { checkReservationRoute } = routes;
 
 const SpecificTrain = () => {
 
@@ -19,33 +22,11 @@ const SpecificTrain = () => {
       incorrectfield: ''
     });
 
-    const fetchUser = () => {
-        fetch(`http://localhost:8080/?auth=${cookies.token}`, {
-                method: 'POST',
-                headers: { Accept: 'application/json','Content-Type': 'application/json'},
-                credentials: 'same-origin',
-            })
-              .then((res) => res.json())
-              .then((json) => {
-                setUser({
-                  name: json.name,
-                  id: json.id,
-                  type: json.type
-                })
-              })
-              .catch(() => {
-                setErr({
-                  show: true,
-                  incorrectfield: 'Error while loading data'
-                })
-              })
-    }
-
     const fetchRes = () => {
-        fetch(`http://localhost:8080/checkres?trainId=${state.trainId}`, {
+        fetch(`${checkReservationRoute}?trainId=${state.trainId}`, {
                 method: 'GET',
                 headers: { Accept: 'application/json','Content-Type': 'application/json'},
-                credentials: 'same-origin',
+                credentials: 'include',
             })
         .then((res) => res.json())
         .then((json) => {
@@ -68,53 +49,15 @@ const SpecificTrain = () => {
         })    
     }
 
-    const loadUser = () => {
-        if (cookies.token) {
-            fetchUser();
-          } else {
-            setUser({
-              name: '',
-              id: '',
-            });
-          }
-    }
-
     useEffect(() => {
-        loadUser();
-        fetchRes();
+      fetchRes();
+      setUser({
+        name: localStorage.getItem('username'),
+        type: localStorage.getItem('type'),
+        id: localStorage.getItem('id'),
+      })
       // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [])
-
-      const logOut = () => {
-        removeCookie('token', { path: '/'});
-        setUser({
-          name: '',
-          id: '',
-          type: ''
-        })
-      }
-    
-      const loggedIn = async (newtoken) => {
-        fetch(`http://localhost:8080/?auth=${newtoken}`, {
-                method: 'POST',
-                headers: { Accept: 'application/json','Content-Type': 'application/json'},
-                credentials: 'same-origin',
-            })
-              .then((res) => res.json())
-              .then((json) => {
-                setUser({
-                  name: json.name,
-                  id: json.id,
-                  type: json.type
-                })
-              })
-              .catch(() => {
-                setErr({
-                  show: true,
-                  incorrectfield: 'Error while loading data'
-                })
-              })
-      }  
       
     const handleClose = () => {
       setErr({
@@ -123,14 +66,21 @@ const SpecificTrain = () => {
       })
     }  
 
+    const authCallback = () => {
+      setUser({
+        name: localStorage.getItem('username'),
+        type: localStorage.getItem('type'),
+        id: localStorage.getItem('id'),
+      });
+    }
+
     return (
         <div className="bg-warning wrapper">
-            {user && <Top 
-                  user={user.name} 
-                  logOut={logOut}
-                  logIn={loggedIn}
-                  type={user.type}
-                />}
+            {user && <Top
+              authCallback = {authCallback}
+              user = {user.name}
+              type = {user.type}
+            />}
             <div className='details'>    
               <div className='row'>
                 <div className='col'></div>

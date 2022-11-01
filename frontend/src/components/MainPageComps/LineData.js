@@ -3,6 +3,9 @@ import { useState } from 'react';
 import {Link} from 'react-router-dom';
 import DeleteTrainButton from "./DeleteTrainButton";
 import './../../styles/components/LineData.css';
+import routes from "../../router/index";
+
+const { reservationRoute } = routes;
 
 const LineData = (props) => {
     const [err,setErr] = useState({
@@ -20,10 +23,10 @@ const LineData = (props) => {
     const [unsucces,setUnsucces] = useState();
 
     const makeReservation = async () => {
-        fetch(`http://localhost:8080/mr`, {
+        fetch(reservationRoute, {
             method: 'POST',
             headers: { Accept: 'application/json','Content-Type': 'application/json'},
-            credentials: 'same-origin', //include
+            credentials: 'include', //include
             body: JSON.stringify(reqObj)
         })
         .then((res) => res.json())

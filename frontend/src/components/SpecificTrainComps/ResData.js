@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { Modal, ModalBody, ModalHeader, ModalFooter, ModalTitle,Button } from "react-bootstrap";
+import routes from '../../router/index';
+
+const { deleteReservationRoute } = routes;
 
 const ResData = (props) => {
     const [state] = useState({
@@ -10,13 +13,13 @@ const ResData = (props) => {
     const [err,setErr] = useState({ 
         show: false,
         incorrectfield: ''
-      });
+    });
 
     const deleteRes = async () => {
-        await fetch(`http://localhost:8080/deleteres`, {
+        await fetch(deleteReservationRoute, {
             method: 'POST',
             headers: { Accept: 'application/json','Content-Type': 'application/json'},
-            credentials: 'same-origin',
+            credentials: 'include',
             body: JSON.stringify(state)
         })
         .then((res) => res.json())
@@ -44,7 +47,7 @@ const ResData = (props) => {
         })
     }  
 
-    if (props.loggedinId === state.userId) {
+    if (parseInt(props.loggedinId,10) === state.userId) {
         return (
         <div className="row">
             <div className="col side"></div>

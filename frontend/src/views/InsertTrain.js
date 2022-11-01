@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useCookies } from 'react-cookie';
 import { Form, Button, Modal, ModalBody, ModalFooter, ModalTitle, ModalHeader } from 'react-bootstrap';
-import Joi from 'joi';
+import validation from '../services/insert-train-validation';
 import '../styles/views/Forms.css'
+import routes from '../router/index';
+
+const { insertTrainRoute } = routes;
 
 const InsertTrain = () => {
 
-    const [cookies] = useCookies([]);
-
-    const [state,setState] = useState({
+    const [state, setState] = useState({
         from: '',
         to: '',
         weekday: 'Mon',
@@ -29,34 +29,9 @@ const InsertTrain = () => {
     })
 
     let navigate = useNavigate();
-
-    const fetchUser = async () => {
-        await fetch(`http://localhost:8080/?auth=${cookies.token}`, {
-                method: 'POST',
-                headers: { Accept: 'application/json','Content-Type': 'application/json'},
-                credentials: 'same-origin',
-            })
-              .then((res) => res.json())
-              .then((json) => {
-                  if (json.type !== 'admin') {
-                    setInvalid({
-                        show: true
-                    })
-                  }
-              })
-              .catch(() => {
-                  setModal({
-                      show: true,
-                      title: 'Error',
-                      text: 'Error while trying to Authenticate'
-                  })
-              })   
-    }    
     
     useEffect(() => {
-        if (cookies.token) {
-            fetchUser();
-        } else {
+        if (localStorage.getItem('type') !== 'admin') {
             setInvalid({
                 show: true
             })
@@ -154,39 +129,8 @@ const InsertTrain = () => {
         })
     }
 
-    const schemaFrom = Joi.object({
-        from: Joi.string()
-            .required()
-            .min(1)
-            .pattern(/[A-Z]+[a-z]*/),    
-    });
-
-    const schemaTo = Joi.object({
-        to: Joi.string()
-            .required()
-            .min(1)
-            .pattern(/[A-Z]+[a-z]*/),
-    });
-
-    const schemaPrice = Joi.object({
-        ticketprice: Joi.number()
-            .greater(0)   
-    })
-
-    const validation = () => {
-        if (schemaFrom.validate({from: state.from}).error) {
-            return 'From';
-        } else if (schemaTo.validate({to: state.to}).error) {
-            return 'To';
-        } else if (schemaPrice.validate({ticketprice: state.ticketprice}).error) {
-            return 'Ticketprice';
-        } else {
-            return 'Ok';
-        }
-    }
-
-    const handleForm = async () => {
-        const resVal = await validation();
+    const insertTrain = async () => {
+        const resVal = await validation(state);
         if (resVal === 'From') {
             setModal({
                 show: true,
@@ -206,10 +150,15 @@ const InsertTrain = () => {
                 text: 'TicketPrice input was not correct'
             })
         } else if (resVal === 'Ok') {
-            fetch('http://localhost:8080/insert', {
+            postTrain();
+        }
+    }
+
+    const postTrain = () => {
+        fetch(insertTrainRoute, {
                 method: 'POST',
                 headers: { Accept: 'application/json','Content-Type': 'application/json'},
-                credentials: 'same-origin',
+                credentials: 'include',
                 body: JSON.stringify(state),
             })
             .then((resp) => resp.json())
@@ -235,7 +184,6 @@ const InsertTrain = () => {
                     text: 'Couldnt insert train'
                 })
             })
-        }
     }
 
     return (
@@ -304,7 +252,7 @@ const InsertTrain = () => {
                     </Form.Select>
                 </Form.Group>
                 <br></br>    
-                <Button onClick={handleForm}>Submit</Button>
+                <Button onClick={insertTrain}>Submit</Button>
             </Form>
             </div>
             <div className="col"></div>
