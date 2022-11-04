@@ -1,8 +1,8 @@
 import { useState,useEffect } from 'react';
 import '../styles/views/MainPage.css';
-import Lines from '../components/MainPageComps/Lines';
+import Lines from '../components/MainPageComps/LineWrapper';
 import SearchBar from '../components/MainPageComps/SearchBar';
-import Top from '../components/LoginComps/Top';
+import TopWrapper from '../components/LoginComps/TopWrapper';
 import { Modal, ModalBody, ModalHeader, ModalFooter, ModalTitle, Button} from 'react-bootstrap';
 import routes from '../router/index';
 
@@ -96,7 +96,7 @@ const MainPage = () => {
 
   return (
     <div className="wrapper bg-warning"> 
-      {user && <Top
+      {user && <TopWrapper
         authCallback = {authCallback}
         user = {user.name}
         type = {user.type}

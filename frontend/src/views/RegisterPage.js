@@ -8,6 +8,12 @@ const { registrationRoute } = routes;
 
 const RegisterPage = () => {
 
+    let navigate = useNavigate(); 
+
+    const routeChange = () => {
+        navigate('/');
+    }
+
     const [state,setState] = useState({
         username: '',
         pw: '',
@@ -24,8 +30,6 @@ const RegisterPage = () => {
     const [modalsucc,setModalSucc] = useState({
         show: false
     })
-
-    let navigate = useNavigate(); 
 
     const changeUsername = (e) => {
         setState((prevState) => {
@@ -85,10 +89,6 @@ const RegisterPage = () => {
         })
     }
 
-    const routeChange = () => {
-        navigate('/');
-    }
-
     const sendData = () => {
         const userData = {
             name: state.username,
@@ -130,7 +130,7 @@ const RegisterPage = () => {
         });
     }
 
-    const handleClick = async () => {
+    const checkInput = async () => {
         if (state.username === '') {
             setModal({
                 show: true,
@@ -202,7 +202,7 @@ const RegisterPage = () => {
                 </Form.Control>
             </Form.Group>
             <br></br>
-            <Button onClick={handleClick} className="mb-6">Register</Button>
+            <Button onClick={checkInput} className="mb-6">Register</Button>
             <br></br>
             <br></br>
             <Button onClick={routeChange} className="mt-6">Go to Main Page</Button>

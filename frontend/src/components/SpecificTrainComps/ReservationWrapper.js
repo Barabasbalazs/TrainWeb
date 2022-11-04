@@ -1,12 +1,12 @@
-import ResData from "./ResData";
+import ReservationData from "./ReservationData";
 
-const Res = (props) => {
+const ReservationWrapper = (props) => {
     const reservations = props.resuser;
 
     return(
         <div>
             {reservations.map((res) => {
-                return(<ResData
+                return(<ReservationData
                         trainId={res.trainid}
                         userId={res.userid}
                         loggedinId={props.id}
@@ -18,4 +18,4 @@ const Res = (props) => {
     )
 }
 
-export default Res;
+export default ReservationWrapper;

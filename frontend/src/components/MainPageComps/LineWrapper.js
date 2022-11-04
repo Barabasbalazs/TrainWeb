@@ -1,6 +1,6 @@
 import LineData from './LineData';
 
-const Lines = (props) => {
+const LineWrapper = (props) => {
     const lines = props.traindata;
 
     return(
@@ -23,4 +23,4 @@ const Lines = (props) => {
     )
 }
 
-export default Lines;
+export default LineWrapper;

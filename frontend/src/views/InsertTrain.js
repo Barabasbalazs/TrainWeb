@@ -9,6 +9,8 @@ const { insertTrainRoute } = routes;
 
 const InsertTrain = () => {
 
+    let navigate = useNavigate();
+
     const [state, setState] = useState({
         from: '',
         to: '',
@@ -27,8 +29,6 @@ const InsertTrain = () => {
     const [invalidmodal, setInvalid] = useState({
         show: false
     })
-
-    let navigate = useNavigate();
     
     useEffect(() => {
         if (localStorage.getItem('type') !== 'admin') {

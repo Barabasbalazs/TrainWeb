@@ -4,7 +4,7 @@ import routes from '../../router/index';
 
 const { deleteReservationRoute } = routes;
 
-const ResData = (props) => {
+const ReservationData = (props) => {
     const [state] = useState({
         trainId: props.trainId,
         userId: props.userId
@@ -98,4 +98,4 @@ const ResData = (props) => {
     }    
 }
 
-export default ResData;
+export default ReservationData;

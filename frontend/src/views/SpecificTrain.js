@@ -1,8 +1,8 @@
 import { useLocation } from 'react-router-dom';
 import { useState,useEffect } from 'react';
 import { useCookies } from 'react-cookie';
-import Top from '../components/LoginComps/Top';
-import Res from '../components/SpecificTrainComps/Res';
+import TopWrapper from '../components/LoginComps/TopWrapper';
+import ReservationWrapper from '../components/SpecificTrainComps/ReservationWrapper';
 import { Modal, ModalBody, ModalHeader, ModalFooter, ModalTitle, Button} from 'react-bootstrap';
 import '../styles/views/SpecificTrain.css';
 import routes from '../router/index';
@@ -76,7 +76,7 @@ const SpecificTrain = () => {
 
     return (
         <div className="bg-warning wrapper">
-            {user && <Top
+            {user && <TopWrapper
               authCallback = {authCallback}
               user = {user.name}
               type = {user.type}
@@ -96,11 +96,11 @@ const SpecificTrain = () => {
                 </div> 
                 <div className='col'></div> 
               </div>
-            {resData && <Res
-                        id={user.id}
-                        name={user.name}
-                        resuser={resData.resuser}
-                        callback={fetchRes}
+            {resData && <ReservationWrapper
+                          id={user.id}
+                          name={user.name}
+                          resuser={resData.resuser}
+                          callback={fetchRes}
                         />}
             <div className="mb-6"></div>            
             </div>            

@@ -1,7 +1,7 @@
 import TopLogin from "./TopLogin";
 import TopLogout from "./TopLogout";
 
-const Top = (props) => {
+const TopWrapper = (props) => {
     //console.log(props);
     if (props.user !== null) {
         return (
@@ -20,4 +20,4 @@ const Top = (props) => {
     }
 }
 
-export default Top;
+export default TopWrapper;
