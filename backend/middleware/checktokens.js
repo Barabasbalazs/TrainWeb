@@ -5,8 +5,8 @@ const secret = '4234hdh9ghf38rdnfocnw4';
 
 const checkToken = (req, res, next) => {
   // console.log(req);
-  console.log(req.cookie);
-  next();
+  // console.log(req.cookie);
+  // next();
 
   /*
   jwt.verify(req.query.auth, secret, (err, payload) => {

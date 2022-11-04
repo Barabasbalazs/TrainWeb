@@ -6,7 +6,7 @@ import TopWrapper from '../components/LoginComps/TopWrapper';
 import { Modal, ModalBody, ModalHeader, ModalFooter, ModalTitle, Button} from 'react-bootstrap';
 import routes from '../router/index';
 
-const { lineRoute, searchRoute } = routes;
+const { trainsRoute, searchTrainRoute } = routes;
 
 const MainPage = () => {
   const [state, setState] = useState();
@@ -20,7 +20,7 @@ const MainPage = () => {
 
   //need to get if user is logged in as well
   const getLines = async () => {
-      await fetch(lineRoute, {
+      await fetch(trainsRoute, {
           method: 'GET',
           headers: { Accept: 'application/json','Content-Type': 'application/json'},
           credentials: 'include'
@@ -58,7 +58,7 @@ const MainPage = () => {
   //improve the search 
   const searchLines = (recieved) => {
     if (recieved.minprice !== '' && recieved.maxprice !== '' && recieved.minprice >= 0 && recieved.maxprice >= 0)
-      fetch(`${searchRoute}/?from=${recieved.from}&to=${recieved.to}&min=${recieved.minprice}&max=${recieved.maxprice}`, {
+      fetch(`${searchTrainRoute}/?from=${recieved.from}&to=${recieved.to}&min=${recieved.minprice}&max=${recieved.maxprice}`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include'

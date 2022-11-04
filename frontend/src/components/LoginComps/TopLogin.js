@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import routes from "../../router/index";
 
-const { authRoute } = routes;
+const { loginRoute } = routes;
 
 const TopLogin = (props) => {
 
@@ -17,7 +17,7 @@ const TopLogin = (props) => {
     });
 
     const sendAuth = async () => {
-        fetch(`${authRoute}/?name=${state.username}&pw=${state.password}`, {    
+        fetch(`${loginRoute}/?name=${state.username}&pw=${state.password}`, {    
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
         })

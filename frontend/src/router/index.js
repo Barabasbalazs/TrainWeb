@@ -1,15 +1,18 @@
 import apiUrl from "../utils/constants/apiUrl";
 
 const routes = {
-    lineRoute : `${apiUrl}/lines`,
-    searchRoute : `${apiUrl}/searchlines`,
-    authRoute : `${apiUrl}/userdata`,
-    insertTrainRoute : `${apiUrl}/insert`,
-    deleteTrainRoute : `${apiUrl}/deletetrain`,
-    reservationRoute : `${apiUrl}/mr`,
-    deleteReservationRoute : `${apiUrl}/deleteres`,
+    // auth system
+    loginRoute : `${apiUrl}/login`,
     registrationRoute : `${apiUrl}/register`,
-    checkReservationRoute : `${apiUrl}/checkres`
+    // checking train data and searching
+    trainsRoute : `${apiUrl}/trains`,
+    searchTrainRoute : `${apiUrl}/searchtrain`,
+    insertTrainRoute : `${apiUrl}/inserttrain`,
+    deleteTrainRoute : `${apiUrl}/deletetrain`,
+    // reservations
+    makeReservationRoute : `${apiUrl}/makereservation`,
+    deleteReservationRoute : `${apiUrl}/deletereservation`,
+    checkReservationRoute : `${apiUrl}/checkreservation`
 }
 
 export default routes;
