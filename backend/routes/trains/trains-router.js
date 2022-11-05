@@ -1,22 +1,10 @@
 import express from 'express';
-import mongoFunctions from '../db/db.js';
+import trainController from '../../controllers/train-controller.js';
+
+const { getEveryTrain } = trainController;
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  const respObj = {
-    lines: '',
-  };
-  mongoFunctions.asyncGetAll()
-    .then((trains) => {
-      respObj.lines = trains;
-      respObj.error = false;
-      res.send(respObj);
-    })
-    .catch(() => {
-      respObj.error = true;
-      res.send(respObj);
-    });
-});
+router.get('/', (req, res) => getEveryTrain(req, res));
 
 export default router;

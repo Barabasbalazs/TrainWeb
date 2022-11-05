@@ -1,22 +1,10 @@
 import express from 'express';
-import mongoFunctions from '../db/db.js';
+import reservationController from '../../controllers/reservation-controller.js';
+
+const { checkReservation } = reservationController;
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  const respObj = {
-    error: false,
-    resuser: '',
-  };
-  mongoFunctions.asyncGetReservations(req.query.trainId)
-    .then((foundres) => {
-      respObj.resuser = foundres;
-      res.send(respObj);
-    })
-    .catch(() => {
-      respObj.error = true;
-      res.send(respObj);
-    });
-});
+router.get('/', (req, res) => checkReservation(req, res));
 
 export default router;

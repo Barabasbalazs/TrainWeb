@@ -3,6 +3,7 @@ import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
 import constants from './utils/constants.js';
 import router from './routes/index.js';
+import connectToDb from './services/db-service.js';
 
 const app = express();
 
@@ -21,6 +22,8 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Credentials', true);
   next();
 });
+
+connectToDb();
 
 // app.use(cors());
 

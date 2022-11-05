@@ -1,21 +1,10 @@
 import express from 'express';
-import mongoFunctions from '../db/db.js';
+import trainController from '../../controllers/train-controller.js';
+
+const { deleteTrain } = trainController;
 
 const router = express.Router();
 
-router.post('/', (req, res) => {
-  const respObj = {
-    error: false,
-  };
-  mongoFunctions.asyncDeleteTrain(req.body.trainid)
-    .then(() => {
-      respObj.error = false;
-      res.send(respObj);
-    })
-    .catch(() => {
-      respObj.error = true;
-      res.send(respObj);
-    });
-});
+router.post('/', (req, res) => deleteTrain(req, res));
 
 export default router;

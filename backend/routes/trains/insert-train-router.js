@@ -1,20 +1,10 @@
 import express from 'express';
-import mongoFunctions from '../db/db.js';
+import trainController from '../../controllers/train-controller.js';
+
+const { insertTrain } = trainController;
 
 const router = express.Router();
 
-router.post('/', (req, res) => {
-  const respObj = {
-    error: false,
-  };
-  mongoFunctions.asyncInsertTrain(req.body)
-    .then(() => {
-      res.send(respObj);
-    })
-    .catch(() => {
-      respObj.error = true;
-      res.send(respObj);
-    });
-});
+router.post('/', (req, res) => insertTrain(req, res));
 
 export default router;

@@ -1,21 +1,10 @@
 import express from 'express';
-import mongoFunctions from '../db/db.js';
+import reservationController from '../../controllers/reservation-controller.js';
+
+const { deleteReservation } = reservationController;
 
 const router = express.Router();
 
-router.post('/', (req, res) => {
-  const resobj = {
-    message: '',
-  };
-  mongoFunctions.asyncDeleteRes(req.body.userId, req.body.trainId)
-    .then(() => {
-      resobj.message = 'Succ';
-      res.send(resobj);
-    })
-    .catch(() => {
-      resobj.message = 'Unsuccesfull';
-      res.send(resobj);
-    });
-});
+router.post('/', (req, res) => deleteReservation(req, res));
 
 export default router;
