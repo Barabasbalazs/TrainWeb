@@ -5,7 +5,7 @@ import DeleteTrainButton from "./DeleteTrainButton";
 import './../../styles/components/LineData.css';
 import routes from "../../router/index";
 
-const { reservationRoute } = routes;
+const { makeReservationRoute } = routes;
 
 const LineData = (props) => {
     const [err,setErr] = useState({
@@ -23,26 +23,37 @@ const LineData = (props) => {
     const [unsucces,setUnsucces] = useState();
 
     const makeReservation = async () => {
-        fetch(reservationRoute, {
-            method: 'POST',
-            headers: { Accept: 'application/json','Content-Type': 'application/json'},
-            credentials: 'include', //include
-            body: JSON.stringify(reqObj)
-        })
-        .then((res) => res.json())
-        .then((json) => {
+        try {
+            const response = await fetch(makeReservationRoute, {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include', //include
+                body: JSON.stringify(reqObj)
+            });
+            if (!response.ok) {
+                const errorMsg = await response.text();
+                console.error(errorMsg);
+                return setErr({
+                    show: true,
+                    incorrectfield: 'Error while loading data',
+                });
+            }
+            const json = await response.json();
             if (json.message === 'Succ') {
                 setSucces(json.message);
             } else if (json.message === 'Unsuccesfull') {
                 setUnsucces(json.message);
             }
-        })
-        .catch(() => {
+        } catch (e) {
+            console.error(e);
             setErr({
                 show: true,
-                incorrectfield: 'Error while loading data'
-            })
-        });
+                incorrectfield: 'Error while loading data',
+            });
+        }
     }
 
     const handleClose = () => {
@@ -52,7 +63,7 @@ const LineData = (props) => {
         })
       }
 
-    if (props.userid === '') {
+    if (localStorage.getItem('id') === null) {
         return (
             
             <div className="row">    
