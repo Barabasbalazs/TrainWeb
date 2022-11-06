@@ -1,6 +1,6 @@
 import { useState,useEffect } from 'react';
 import '../styles/views/MainPage.css';
-import Lines from '../components/MainPageComps/LineWrapper';
+import LineWrapper from '../components/MainPageComps/LineWrapper';
 import SearchBar from '../components/MainPageComps/SearchBar';
 import TopWrapper from '../components/LoginComps/TopWrapper';
 import { Modal, ModalBody, ModalHeader, ModalFooter, ModalTitle, Button} from 'react-bootstrap';
@@ -104,7 +104,7 @@ const MainPage = () => {
       <SearchBar
         submitSearch={searchLines}
       />
-      {(state && user) && <Lines
+      {(state && user) && <LineWrapper
                 traindata = {state.traindata}
                 userid = {user.id}
                 type = {user.type}

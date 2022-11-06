@@ -74,6 +74,7 @@ const LineData = (props) => {
                         <p>To: {props.to}</p>
                         <p>Weekday: {props.weekday}</p>
                         <p>Hour: {props.hour}</p>
+                        <p>Price: {props.ticketprice}</p>
                         <Link to='/specifictrain'
                             className="text-center align-top mb-1"
                             state={{trainId: props.trainId,
@@ -109,6 +110,7 @@ const LineData = (props) => {
                         <p>To: {props.to}</p>
                         <p>Weekday: {props.weekday}</p>
                         <p>Hour: {props.hour}</p>
+                        <p>Price: {props.ticketprice}</p>
                         <Button className="mt-1 mb-1" onClick={makeReservation}>Make a reservation</Button>
                         {succes && <p>Succesfull reservation</p>}
                         {unsucces && <p>Unsuccesfull reservation</p>}

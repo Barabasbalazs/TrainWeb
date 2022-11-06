@@ -65,7 +65,7 @@ const login = (req, res) => {
     });
 };
 
-const registration = async (req, res) => {
+const register = async (req, res) => {
   const respObj = {
     error: false,
     isvalid: '',
@@ -100,5 +100,5 @@ const registration = async (req, res) => {
 
 export default {
   login,
-  registration,
+  register,
 };
